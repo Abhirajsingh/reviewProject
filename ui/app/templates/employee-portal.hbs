@@ -1,0 +1,66 @@
+{{!-- default page that display the employee list in grid--}}
+
+{{#paper-toolbar class="whiteBg toolbar" }}
+  {{#paper-toolbar-tools}}
+    <h2>Urban Wonder Studio</h2>
+    <h2> Directory</h2>
+    <h2 class="gray"> Org chat</h2>
+    <h2 class="gray"> out of Office</h2>
+    <h2 class="gray"> Add on</h2>
+    <h2 class="gray"> Admin </h2>
+    <div class="flex-30"></div>
+    <img src="https://t3.ftcdn.net/jpg/01/15/86/74/240_F_115867417_zYcMbYMsMp337eABaxGNNteN6PIIyxTo.jpg"
+         class="img-1">
+    <img src="https://www.shareicon.net/download/2016/08/18/809295_info_512x512.png"
+     class="img-2">
+    <img src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+         class="img-3">
+    <span class="flex"></span>
+  {{/paper-toolbar-tools}}
+{{/paper-toolbar}}
+{{#paper-toolbar class="grainsBg toolbar"}}
+  {{#paper-toolbar-tools}}
+    <h2>Everyone</h2>
+    <h2 class="gray"> Team</h2>
+    <h2 class="gray"> Office</h2>
+    <div class="flex-65"></div>
+    <div class="shortList">
+      <span class="firstName"> First name &#8964;</span>
+    </div>
+    <span class="flex"></span>
+  {{/paper-toolbar-tools}}
+{{/paper-toolbar}}
+<div class="flex-100 toolbarBar">
+  <div class="flex-5 activeState"></div>
+</div>
+<div class="layout-row layout-wrap employeeBlock">
+
+
+
+ <!--card for displaying total no of employee andadd employee button-->
+  <div class=" cardWrapper">
+  {{#paper-card class="noBgColor noShadow" as |card|}}
+    {{#card.content class="layout-row centerAling"}}
+      {{#card.media size="xl" }}
+        <h3> Total Employee</h3>
+        <div class="circle">
+          <h1>{{length}}</h1>
+        </div>
+        {{#link-to 'new-employee'}}
+          {{#paper-button class="button"}}
+            + Add Employee
+          {{/paper-button}}{{/link-to}}
+      {{/card.media}}
+    {{/card.content}}
+  {{/paper-card}}
+</div>
+<!--passing each employee to component to display the detail as card-->
+{{# each employees as |employee|}}
+  <div class="layout-row layout-md-column employeeContainer">
+  {{employee-listing employee = employee }}
+  </div>
+{{/each}}
+
+{{outlet}}
+</div>
+

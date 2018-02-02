@@ -1,0 +1,164 @@
+@import 'ember-power-select/themes/material';
+
+@import 'ember-paper';
+
+@import "ember-power-select";
+
+
+.employeeBlock{
+  padding: 5%;
+  padding-top: 20px;
+  background-color: #f1f5f8;
+}
+.employee{
+  background-color: white;
+  text-align: center;
+  padding: 1%;
+  width:230px;
+}
+.cardWrapper{
+  width: 280px;
+}
+.cardWrapper:hover {
+  opacity: .7;
+}
+.noBgColor{
+  background-color: #f1f5f8;
+}
+.noShadow{
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+.employee p{
+  text-align: center;
+  line-height: 7px;
+}
+.employee:hover{
+  opacity:.7;
+}
+.cardWrapper:hover .hoverStatus{
+  background-color: #00adff;
+}
+.picWrapper{
+  width: 130px;
+  height: 130px;
+  margin: 0 auto;
+  padding-top: 5%;
+}
+.profilPic{
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+}
+.fullNale{
+ margin-bottom: .5em;
+}
+.role{
+line-height: 25px;
+}
+.mobileNo{
+line-height: 25px;
+}
+
+.hoverStatus{
+  height: 4px;
+}
+.totalemployee{
+  text-align: center;
+  width: 230px;
+  padding: 2%;
+}
+.button{
+  background:#37C271 !important;
+  border-radius: 5px !important;
+  padding-right: 5% !important;
+  padding-left: 5% !important;
+  color:white !important;
+  text-transform: none !important;
+}
+.addButton{
+  padding-top: 5%;
+  padding-bottom: 5%;
+  text-decoration: none;
+}
+.margin-left-8{
+  margin-left: 8%;
+}
+.margin-right-8{
+  margin-right: 8%;
+}
+.margin-top-5{
+  margin-top: 5%;
+}
+.fixed{
+  position: fixed !important;
+}
+.circle{
+  border-style: solid;
+  border-color: grey;
+  border-radius: 50%;
+  height: 90px;
+  width: 90px;
+  margin-left: 30%;
+  margin-bottom: 13%;
+}
+.centerAling{
+  text-align: center;
+}
+.toolbar{
+  color: #5f68ff !important;
+}
+.whiteBg{
+  background-color: white !important;
+}
+.toolbar h2{
+  font-size: 14px !important;
+  margin-right: 3% !important;
+}
+.toolbar .img-1{
+  width: 40px;
+  float: right;
+  border-radius: 50%;
+  margin-right: 2%;
+}
+.toolbar .img-2{
+  width: 40px;
+  float: right;
+  border-radius: 50%;
+  margin-right: 2%;
+}
+.toolbar .img-3{
+  width: 40px;
+  float: right;
+  border-radius: 50%;
+  margin-right: 2%;
+}
+.gray{
+  color: grey;
+}
+.grainsBg{
+  background-color: #f1f5f8 !important;
+}
+.shortList
+{
+  border-radius: 5px;
+  border-style: solid;
+  border-color:#d8d8d8;
+  text-align: center;
+  border-width: 2px;
+  padding: 3px;
+}
+.shortList .firstName{
+  font-size: 14px;
+  color: gray
+}
+.toolbarBar{
+  height: 3px;
+  background-color: #d8d8d8;
+}.activeState{
+   height: 3px;
+   background-color: #00adff;
+   margin-left: 1%;
+ }
+
+
