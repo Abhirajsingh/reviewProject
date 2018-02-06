@@ -150,7 +150,7 @@
         <div class="layout-column flex-55">
           <!-- content in this -->
           <div class="white general-detail">
-            <div class="layout-row">
+            <div class="layout-row input-white">
             <h2>
               {{paper-input class="my-input-h white-border" required=true placeholder="First Name" value=newEmployee.firstName onChange=(action (mut newEmployee.firstName)) maxlength=20}}
             </h2>
@@ -183,7 +183,7 @@
               }}{{location.landmark}}{{/paper-select}}</span></div>
             <div class="layout-row">
               <img  class="calender-logo" src="/assets/images/calender_logo.png">
-              <span>
+              <span class="input-white">
                 {{paper-input type="date" class="my-input-h" id="span-p" placeholder="Start Date" value=newEmployee.startDate onChange=(action (mut newEmployee.startDate)) maxlength=20
                 required=true }}
               </span></div>
@@ -242,8 +242,14 @@
         <div class="layout-column">
           <div>
             <img  id="#profilePic" class="detailPic" src="/{{newEmployee.profilePic}}">
+            {{#if new}}
             <input type='file' required accept="image/x-png,image/gif,image/jpeg"
-                   id='file-field' onChange={{action "fileUpload" this}}/>
+                   id='file-field' alt="profile picture" onChange={{action "fileUpload" this}}/>
+            {{else}}
+              <input type='file' accept="image/x-png,image/gif,image/jpeg"
+                     id='file-field' onChange={{action "fileUpload" this}}/>
+            {{/if}}
+
           </div>
           {{#paper-card class="info-card noMargin" as |card|}}
             <div class="whiteBg buisness-info">
@@ -282,7 +288,7 @@
                                   placeholder="Reporting Employee"
                                   options=employeeList
                                   selected= newEmployee.reportingEmployeeName
-                                  onchange=(action "setEmployeeId" )
+                                  onchange=(action (mut newEmployee.reportingEmployeeName))
                   as |employee|
                   }}{{employee.name}}{{/paper-select}}
                 </span>

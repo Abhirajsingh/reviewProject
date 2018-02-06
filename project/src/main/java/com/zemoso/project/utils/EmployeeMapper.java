@@ -119,8 +119,12 @@ public class EmployeeMapper {
 
 
             if (map.containsKey(Constant.EMPLOYEE_ROLE) && map.get(Constant.EMPLOYEE_ROLE) != null) {
+                try{
                 Map<String ,Object> roleMap = (Map<String, Object>) map.get(Constant.EMPLOYEE_ROLE);
-                employee.setEmployeeRole(roleMap.get(Constant.NAME).toString());
+                employee.setEmployeeRole(roleMap.get(Constant.NAME).toString());}
+                catch (Exception e){
+                    employee.setEmployeeRole(map.get(Constant.EMPLOYEE_ROLE).toString());
+                }
             }
 
             if (map.containsKey(Constant.LOCATION) && map.get(Constant.LOCATION) != null) {
@@ -136,8 +140,12 @@ public class EmployeeMapper {
                 employee.setReportingEmployeeId(Long.parseLong(map.get(Constant.REPORTING_EMPLOYEE_ID).toString()));
             }
             if (map.containsKey(Constant.REPORTING_EMP_NAME) && map.get(Constant.REPORTING_EMP_NAME) != null) {
-                Map<String ,Object> reportingNamMap = (Map<String, Object>) map.get(Constant.REPORTING_EMP_NAME);
-                employee.setReportingEmployeeName(reportingNamMap.get(Constant.NAME).toString());
+                try {
+                    Map<String, Object> reportingNameMap = (Map<String, Object>) map.get(Constant.REPORTING_EMP_NAME);
+                    employee.setReportingEmployeeName(reportingNameMap.get(Constant.NAME).toString());
+                }catch (Exception e){
+                    employee.setReportingEmployeeName(map.get(Constant.REPORTING_EMP_NAME).toString());
+                }
             }
 
             if (map.containsKey(Constant.PROFILE_PIC))

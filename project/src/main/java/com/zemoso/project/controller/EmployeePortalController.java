@@ -59,7 +59,7 @@ public class EmployeePortalController {
        }
        catch (Exception e){
            LOGGER.error(e.getMessage() , e);
-           return ResponseEntity.status(HttpStatus.FORBIDDEN).
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                    body(e.getMessage());
        }
 
@@ -83,7 +83,7 @@ public class EmployeePortalController {
             return ResponseEntity.ok().body(responseMap);
         }catch (Exception e){
             LOGGER.error(e.getMessage() , e);
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                     body(e.getMessage());
         }
     }
@@ -103,13 +103,10 @@ public class EmployeePortalController {
             return ResponseEntity.ok().body(responseMap);
         }catch (Exception e){
             LOGGER.error(e.getMessage() , e);
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                     body(e.getMessage());
         }
     }
-
-    //TODO
-    //write controller for the update the data
 
     /**
      * REST controller to update/edit a particular employee data
@@ -140,18 +137,17 @@ public class EmployeePortalController {
            dbEmployee.setProfilePic(ipEmployee.getProfilePic());
            dbEmployee.setStartDate(ipEmployee.getStartDate());
            dbEmployee.setReportingEmployeeName(ipEmployee.getReportingEmployeeName());
-           employeePortalService.save(dbEmployee);
+           dbEmployee = employeePortalService.save(dbEmployee);
 
            Map<String, Object> responseMap = new HashMap<>();
                responseMap.put(Constant.EMPLOYEE, employeeMapper.getObjectMap(dbEmployee));
-
+               return ResponseEntity.ok().body(responseMap);
            }
        catch (Exception e){
            LOGGER.error(e.getMessage(),e);
-           ResponseEntity.status(HttpStatus.FORBIDDEN).
-                   body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
        }
-       return ResponseEntity.ok().body(map);
+
    }
 
 }

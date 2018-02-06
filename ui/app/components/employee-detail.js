@@ -50,8 +50,8 @@ export default Component.extend({
          companyEmployee.set('department', self.newEmployee.department);
          companyEmployee.set('project', self.newEmployee.project);
          companyEmployee.set('skills', self.newEmployee.skills);
-         companyEmployee.set('reportingEmployeeId', self.newEmployee.reportingEmployee.id);
-         companyEmployee.set('reportingEmployeeName', self.newEmployee.reportingEmployee.get('name'));
+         companyEmployee.set('reportingEmployeeId', self.newEmployee.reportingEmployeeName.id);
+         companyEmployee.set('reportingEmployeeName', self.newEmployee.reportingEmployeeName);
          companyEmployee.save();
          this.get('router').transitionTo('employee-portal');
        }
@@ -62,7 +62,7 @@ export default Component.extend({
        let fileModel = this.get('store').createRecord('file');
        fileModel.set('attachment' , file);
        fileModel.save().then(function(response){
-       let path = document.getElementById("#profilePic").src = "/"+ response.get("filePath");
+       document.getElementById("#profilePic").src = "/"+ response.get("filePath");
         if(self.newEmployee.profilePic != null){
          self.newEmployee.profilePic = response.get("filePath");}
          else
@@ -73,11 +73,7 @@ export default Component.extend({
 
       newEmployee.save();
     },
-    setEmployeeId(e){
-      let self=this;
-      self.newEmployee.reportingEmployee = e;
-      self.newEmployee.reportingEmployeeId= self.newEmployee.reportingEmployee.id;
-    },
+
     setEmployeeRole(e){
       this.newEmployee.employeeRole = e.get('name');
     },
