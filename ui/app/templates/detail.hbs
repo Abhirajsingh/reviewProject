@@ -1,3 +1,94 @@
 
 {{!-- to display the dtail about a employee --}}
+<div class="body">
+<div class="layout-column shadow">
+  <div class="layout-row white">
+  <span class="margin-1"> Everyone</span>
+  <span class="margin-1"> Team</span>
+  <span class="margin-1"> Office</span>
+  </div>
+  <div></div>
+</div>
+  <!--main -->
+  <div class=" ">
+  <div class="layout-row layout-wrap margin-right-15 margin-left-15 content">
+    <div class="layout-column flex-55">
+      <!-- content in this -->
+      <div class="white general-detail">
+        <h2> {{model.name}} </h2>
+        <h3>{{model.employeeRole.name}}</h3>
+        <div class="layout-row">
+        <img class="location-logo" src="assets/images/location_logo.png">
+        <span>{{model.location.landmark}} , {{model.location.country}}</span></div>
+        <div class="layout-row">
+          <img  class="calender-logo" src="assets/images/calender_logo.png">
+        <span>started: &nbsp;&nbsp;{{model.startDate}}</span></div>
+        {{#link-to 'edit-employee' model.id}}
+        {{#paper-button class="button edit" }}Edit{{/paper-button}}
+        {{/link-to }}
+      </div>
+      <div>
+        {{#paper-card class="info-card" as |card|}}
+          <div class="layout-row">
+          <img class="contact-logo" src="assets/images/contacts_logo.png">
+          <h2 class="contact">Contact</h2></div>
+          <div class="layout-column">
+            <div class="layout-row">
+            <p>email:</p><div class="flex-5"></div><p class="email">{{model.email}}</p></div>
+            <div class="layout-row">
+            <p>mobile:</p><div class="flex-5"></div><p class="mobileNo">{{model.mobileNo}}</p>
+          </div>
+            <div class="layout-row">
+              <p>Social Profile: </p><div class="flex-5"></div>
+            <img class="social-logo" src="assets/images/social_logo1.jpg">
+              <img class="social-logo" src="assets/images/social_logo2.jpg">
+              <img class="social-logo" src="assets/images/social_logo3.jpg">
+              <img class="social-logo" src="assets/images/social_logo4.png">
+            </div>
+            <div class="noBgColor"></div>
+            <div class="layout-row">
+              <img class="contact-logo" src="assets/images/about_logo.png">
+              <h2 class="contact">About</h2></div>
+            <span>Bio</span>
+            <span>{{model.biodata}}</span><br>
+            <span>Skill:</span>
+            <div class="layout-row">
+            {{#each model.skills as |skill|}}
+              <div class="skill"><span>{{skill.name}}</span></div>
+            {{/each}}
+            </div>
+          </div>
 
+        {{/paper-card}}
+      </div>
+
+    </div>
+    <div class="flex-5"></div>
+    <div class="layout-column">
+      <div>
+        <img  class="detailPic" src="{{model.profilePic}}">
+      </div>
+    {{#paper-card class="info-card-g noMargin" as |card|}}
+       <div class="whiteBg buisness-info">
+        <h2> Team </h2>
+         <div class="layout-row">
+           <img class="team-logo" src="assets/images/team_logo.jpg">
+           <p>{{model.project.name}}</p>
+         </div>
+         <div class="layout-row">
+           <img class="team-logo" src="assets/images/team_logo.jpg">
+           <p>{{model.department.name}}</p>
+         </div>
+         <div class="noBgColor"></div>
+         <h3>Report To:</h3>
+         <div class="layout-row">
+           <span class="team-logo reporting">(&nbsp;)</span>
+         <span>{{model.reportingEmployeeName.name}}</span>
+         </div>
+      <!--content in this-->
+       </div>
+  {{/paper-card}}
+    </div>
+  </div>
+</div>
+</div>

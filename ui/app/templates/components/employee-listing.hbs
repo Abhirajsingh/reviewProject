@@ -1,6 +1,6 @@
 
 {{!-- Card for displyaing Employee --}}
-{{!-- todo --> {{#link-to 'detail' employee}}--}}
+{{#link-to 'detail' employee.id class="no-underline"}}
 <div class=" cardWrapper">
 {{#paper-card class="" as |card|}}
   <div class = "hoverStatus"></div>
@@ -11,10 +11,10 @@
           alt="Image/s/not/s/available" >
       </div>
       <p class="fullNale">{{employee.name}}</p>
-      <span class="role">{{employee.employeeRole}} </span><br>
+      <span class="role">{{employee.employeeRole.name}} </span><br>
       <span class = "mobileNo" >{{employee.mobileNo}}</span>
     {{/card.media}}
   {{/card.content}}
 {{/paper-card}}
 </div>
-{{!--todo --> {{/link-to}} --}}
+{{/link-to}}

@@ -181,7 +181,7 @@ INSERT INTO employee VALUES (3, '2018-02-02 10:47:56.261', 1, NULL, '2018-02-02 
 INSERT INTO employee VALUES (5, '2018-02-02 11:04:38.824', 1, NULL, '2018-02-02 11:04:38.824', 1, 'no biodata', 1, 'bestybradtarrivo@redif.com', 'Software Engineer', 'Besty', 'Arrivo', 'Bradt', '9088123453', '1234', 1, NULL, NULL, 1, 1, 1);
 INSERT INTO employee VALUES (2, '2018-02-02 07:54:19.081', 1, NULL, '2018-02-02 07:54:19.081', 1, 'not available', 1, 'walterwhite@gmail.com', 'Software Engineer', 'walter', 'White', '', '1715479800', 'walter', 1, NULL, NULL, 1, 1, 1);
 INSERT INTO employee VALUES (4, '2018-02-02 11:02:26.424', 1, NULL, '2018-02-02 11:02:26.424', 1, 'not available', 1, 'aaronpaulberlinate@gmail.com', 'Software Engineer', 'Aaron', 'Berlinate', 'Paul', '9100123123', 'aaron', 3, NULL, NULL, 1, 1, 1);
-INSERT INTO employee VALUES (1, NULL, 1, NULL, NULL, 1, 'not available', 1, 'abhirajsinghpatel@gmail.com', 'Software Engineer', 'Abhiraj', 'Patel', 'Singh', '9800171547', 'demo', NULL, NULL, NULL, 1, 1, 1);
+INSERT INTO employee VALUES (1, NULL, 1, NULL, NULL, 1, 'not available', 1, 'abhirajsinghpatel@gmail.com', 'Software Engineer', 'Abhiraj', 'Patel', 'Singh', '9800171547', 'demo', 2, NULL, NULL, 1, 1, 1);
 
 -- Table: public.employee_skill
 

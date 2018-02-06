@@ -7,9 +7,11 @@ import com.zemoso.project.service.EmployeePortalService;
 import com.zemoso.project.utils.CompanyUtil;
 import com.zemoso.project.utils.Constant;
 import com.zemoso.project.utils.EmployeeMapper;
+import com.zemoso.project.utils.FileSaveMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,31 +33,34 @@ public class EmployeePortalController {
     @Autowired
     private EmployeeMapper employeeMapper;
 
+    @Autowired
+    private FileSaveMapper fileSaveMapper;
+
     /**
      * rest controller to get all employee data from db;
-     * @return
+     * @return <Map<String, List<Map<String, Object>>>>
      */
    @RequestMapping(method= RequestMethod.GET)
-   public ResponseEntity<Map<String, List<Map<String, Object>>>> getAllEmployeeOfCompany(){
+   public ResponseEntity getAllEmployeeOfCompany(){
        Long companyId = CompanyUtil.getCompanyId();
        Map<String,List<Map<String,Object>>> responseMap = new HashMap<>();
        List<Map<String, Object>> mapList = new ArrayList<>();
        try{
                List<Employee> employees = employeePortalService.getAllEmployee(companyId);
            employees.forEach(item->{
-           Map<String, Object> employeeMap = null;
+               Map<String, Object> employeeMap = null;
                try {
                    employeeMap = employeeMapper.getObjectMap(item);
                } catch (MapperException e) {
-                   LOGGER.error(e.getMessage() ,e);
+                   LOGGER.error(e.getMessage() , e);
                }
                mapList.add(employeeMap);
-       });}
-       catch (NullPointerException e){
-           LOGGER.error(e.getMessage());
+       });
        }
-       catch (DbException e){
+       catch (Exception e){
            LOGGER.error(e.getMessage() , e);
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).
+                   body(e.getMessage());
        }
 
 
@@ -67,53 +72,40 @@ public class EmployeePortalController {
      * Rest controller to get selected employee
      *
      * @param employeeId
-     * @return
+     * @return <Map<String, Object>>
      */
     @RequestMapping(path = "/{employeeId}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getProjectsById(@PathVariable Long employeeId) {
-        Employee employee = null;
-        try {
-            employee = employeePortalService.getEmployee(employeeId);
-        } catch (DbException e) {
-          LOGGER.error(e.getMessage() ,e);
-        }
-
+    public ResponseEntity getProjectsById(@PathVariable Long employeeId) {
         Map<String, Object> responseMap = new HashMap<>();
         try {
-            responseMap.put(Constant.EMPLOYEE, employeeMapper.getObjectMap(employee));
-        } catch (MapperException e) {
+            Employee employee = employeePortalService.getEmployee(employeeId);
+                responseMap.put(Constant.EMPLOYEE, employeeMapper.getObjectMap(employee));
+            return ResponseEntity.ok().body(responseMap);
+        }catch (Exception e){
             LOGGER.error(e.getMessage() , e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).
+                    body(e.getMessage());
         }
-
-        return ResponseEntity.ok().body(responseMap);
     }
     /**
      * REST controller to add employee in db
+     * @return type <Map<String, Object>>
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> addEmployee(@RequestBody Map<String , Map> map){
+    public ResponseEntity addEmployee(@RequestBody Map<String , Map> map){
         Map<String, Object> employeeMap = map.get(Constant.EMPLOYEE);
-        Employee employee = null;
+        Map<String, Object> responseMap = new HashMap<>();
         try {
-            employee = employeeMapper.getMapObject(employeeMap);
-        } catch (MapperException e) {
-            LOGGER.error(e.getMessage() ,e);
-        }
-        try {
+            Employee employee = employeeMapper.getMapObject(employeeMap);
             employeePortalService.save(employee);
-        } catch (DbException e) {
-            LOGGER.error(e.getMessage() ,e);
-        }
-        Map<String, Object> emap = null;
-        try {
-            emap = employeeMapper.getObjectMap(employee);
-        } catch (MapperException e) {
+            Map<String, Object> emap = employeeMapper.getObjectMap(employee);
+            responseMap.put(Constant.EMPLOYEE, emap);
+            return ResponseEntity.ok().body(responseMap);
+        }catch (Exception e){
             LOGGER.error(e.getMessage() , e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).
+                    body(e.getMessage());
         }
-        Map<String ,Object> responseMap = new HashMap<>();
-        responseMap.put(Constant.EMPLOYEE ,emap );
-
-        return ResponseEntity.ok().body(responseMap);
     }
 
     //TODO
@@ -121,14 +113,15 @@ public class EmployeePortalController {
 
     /**
      * REST controller to update/edit a particular employee data
-     *
+     *@return <Map<String,Object>>
      */
    @RequestMapping(path = "/{employeeId}", method = RequestMethod.PUT)
-    public ResponseEntity<Map<String,Object>> updateEmployee
-   (@RequestBody Map<String ,Object> map , @PathVariable Long employeeId){
+    public ResponseEntity updateEmployee
+   (@RequestBody Map<String ,Map> map , @PathVariable Long employeeId){
 
        try {
-           Employee ipEmployee = employeeMapper.getMapObject(map);
+
+           Employee ipEmployee = employeeMapper.getMapObject(map.get(Constant.EMPLOYEE));
            Employee dbEmployee = employeePortalService.getEmployee(employeeId);
            dbEmployee.setFirstName(ipEmployee.getFirstName());
            dbEmployee.setMiddleName(ipEmployee.getMiddleName());
@@ -139,8 +132,12 @@ public class EmployeePortalController {
            dbEmployee.setMobileNo(ipEmployee.getMobileNo());
            dbEmployee.setDepartment(ipEmployee.getDepartment());
            dbEmployee.setProject(ipEmployee.getProject());
-           dbEmployee.setEmployeeRole(ipEmployee.getEmployeeRole());
+           try {
+               Map<String, Object> employeeRoleMap = (Map<String, Object>) map.get(Constant.EMPLOYEE).get(Constant.EMPLOYEE_ROLE);
+               dbEmployee.setEmployeeRole(employeeRoleMap.get(Constant.NAME).toString());
+           }catch (Exception e){ dbEmployee.setReportingEmployeeName(ipEmployee.getReportingEmployeeName());}
            dbEmployee.setLocation(ipEmployee.getLocation());
+           dbEmployee.setProfilePic(ipEmployee.getProfilePic());
            dbEmployee.setStartDate(ipEmployee.getStartDate());
            dbEmployee.setReportingEmployeeName(ipEmployee.getReportingEmployeeName());
            employeePortalService.save(dbEmployee);
@@ -151,6 +148,8 @@ public class EmployeePortalController {
            }
        catch (Exception e){
            LOGGER.error(e.getMessage(),e);
+           ResponseEntity.status(HttpStatus.FORBIDDEN).
+                   body(e.getMessage());
        }
        return ResponseEntity.ok().body(map);
    }

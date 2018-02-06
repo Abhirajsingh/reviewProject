@@ -6,6 +6,7 @@ import com.zemoso.project.utils.FileSaveMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
@@ -28,20 +29,22 @@ public class PictureController {
     /**
      * save the file in folder and send the path in response;
      * @param file
-     * @return
+     * @return <Map<String , Map<String , Object>>>
      */
     @RequestMapping(value = "/api/files", method = RequestMethod.POST)
-    public ResponseEntity<Map<String , Map<String , Object>>> addPictureToDb
+    public ResponseEntity addPictureToDb
             (@RequestParam("file[attachment]") MultipartFile file){
         Map<String , Object>  map = null;
         try {
             map = new FileSaveMapper().getObjectMap(file,picDirectory);
+            Map<String ,Map<String ,Object>> responseMap = new HashMap<>();
+            responseMap.put("file" , map);
+            return ResponseEntity.ok().body(responseMap);
         } catch (FileException e) {
             LOGGER.error(e.getMessage() ,e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
-        Map<String ,Map<String ,Object>> responseMap = new HashMap<>();
-        responseMap.put("file" , map);
-        return ResponseEntity.ok().body(responseMap);
+
     }
 
     /**

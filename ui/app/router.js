@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('employee-portal');
   this.route('detail', {path: '/:employee_id'});
   this.route('new-employee');
+  this.route('edit-employee', {path: 'edit/:employee_id'});
 });
 
 export default Router;

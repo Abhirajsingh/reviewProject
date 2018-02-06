@@ -34,7 +34,7 @@ public class Employee extends BaseEntityModel{
     private Location location;
     private String startDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private Department department;
 
     private String reportingEmployeeName;

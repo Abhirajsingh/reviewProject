@@ -10,6 +10,7 @@ import com.zemoso.project.utils.SkillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +35,12 @@ public class SkillController {
     @Autowired
     private EmployeePortalService employeePortalService;
 
+    /**
+     * get all skills
+     * @return <Map<String, List<Map<String, Object>>>>
+     */
     @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity<Map<String, List<Map<String, Object>>>> getAllSkill(){
+    public ResponseEntity getAllSkill(){
         Map<String,List<Map<String,Object>>> responseMap = new HashMap<>();
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
@@ -49,22 +54,21 @@ public class SkillController {
                 }
                 mapList.add(skillMap);
             });
-        }catch (DbException e){
-            LOGGER.error(e.getMessage() ,e);
+            responseMap.put("skills" , mapList);
+            return ResponseEntity.ok().body(responseMap);
         }catch (Exception e){
             LOGGER.error("Skills is null",e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
-        responseMap.put("skills" , mapList);
-        return ResponseEntity.ok().body(responseMap);
+
     }
     /**
-     * get depart of a employee;
+     * get skills of a employee;
      * @param employeeId
-     * @return
+     * @return <Map<String, List<Map<String, Object>>>>
      */
     @RequestMapping(path = "/{employeeId}/skills",method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<Map<String, Object>>>>
-    getEmployeeLocation(@PathVariable Long employeeId){
+    public ResponseEntity getEmployeeSkills(@PathVariable Long employeeId){
         Map<String,List<Map<String,Object>>> responseMap = new HashMap<>();
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
@@ -78,12 +82,12 @@ public class SkillController {
                 }
                 mapList.add(skillMap);
             });
+            responseMap.put("skills", mapList);
+            return ResponseEntity.ok().body(responseMap);
         }
         catch (Exception e){
             LOGGER.error(e.getMessage() ,e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
-        responseMap.put("skills", mapList);
-        return ResponseEntity.ok().body(responseMap);
-
     }
 }

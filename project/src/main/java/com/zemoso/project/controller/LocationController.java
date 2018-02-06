@@ -12,6 +12,7 @@ import com.zemoso.project.utils.LocationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +42,10 @@ public class LocationController {
 
     /**
      * get the list of all location of a company;
-     * @return
+     * @return <Map<String, List<Map<String, Object>>>>
      */
     @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity<Map<String, List<Map<String, Object>>>> getAllLocationOfCompany(){
+    public ResponseEntity getAllLocationOfCompany(){
         Map<String,List<Map<String,Object>>> responseMap = new HashMap<>();
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
@@ -57,37 +58,32 @@ public class LocationController {
                 LOGGER.error(e.getMessage() ,e);
             }
             mapList.add(departmentMap);
-        });}
+        });
+            responseMap.put("locations" , mapList);
+            return ResponseEntity.ok().body(responseMap);
+        }
         catch (Exception e){
             LOGGER.error(e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
-        responseMap.put("locations" , mapList);
-        return ResponseEntity.ok().body(responseMap);
     }
     /**
      * get depart of a employee;
      * @param employeeId
-     * @return
+     * @return <Map<String, Map<String, Object>>>
      */
     @RequestMapping(path = "/{employeeId}/location",method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Map<String, Object>>>
-    getEmployeeLocation(@PathVariable Long employeeId){
+    public ResponseEntity getEmployeeLocation(@PathVariable Long employeeId){
 
         Location location = null;
         try {
             location = employeePortalService.getEmployee(employeeId).getLocation();
-        } catch (DbException e) {
-            LOGGER.error(e.getMessage() ,e);
-        }
-
         Map<String, Map<String, Object>> map = new HashMap<>();
-        try {
             map.put("location", locationMapper.getObjectMap(location) );
-        } catch (MapperException e) {
+            return ResponseEntity.ok().body(map);
+        } catch (Exception e) {
             LOGGER.error(e.getMessage() ,e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
-
-        return ResponseEntity.ok().body(map);
-
     }
 }

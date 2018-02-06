@@ -76,6 +76,11 @@ line-height: 25px;
   color:white !important;
   text-transform: none !important;
 }
+.edit{
+  margin-left: 0;
+  margin-top: 3%;
+  background: #24a3ff !important;
+}
 .addButton{
   padding-top: 5%;
   padding-bottom: 5%;
@@ -160,5 +165,149 @@ line-height: 25px;
    background-color: #00adff;
    margin-left: 1%;
  }
+ .body{
+   background-color: #f1f5f8;
+ }
+ .margin-right-15{
+   margin-right: 15%;
+ }
+ .margin-left-15{
+   margin-left:15%;
+ }
+ .margin-1{
+   margin: 1%;
+ }
+ .shadow{
+   height: 300px;
+   background-color: #4a657d;
+   z-index: -1;
+ }
+ .content{
+   margin-top: -18%;
+ }
+ .white{
+   color: white;
+ }
+ .detailPic{
+   height: 280px;
+   width: 260px;
+ }
+ .general-detail{
+   margin-left: 10px;
+ }
+ .contact-logo{
+   width: 25px;
+   height: 25px;
+   margin-top: 5px;
+   margin-right: 10px;
+ }
+.calender-logo {
+  width: 15px;
+  height:15px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.no-underline{
+  text-decoration: none;
+}
+  .info-card{
+    padding: 15px;
+    min-width: 300px;
+  }
+  .info-card-g{
+    padding: 15px;
+    min-width: 200px;
+  }
+  .info-card .contact{
+    line-height: 0 ;
+  }
+  .info-card .email{
+    margin-left: 15%;
+    color: #00adff;
+  }
+  .info-card .mobileNo{
+    margin-left: 13%;
+    color:#00adff;
+  }
+  .info-card .social-logo{
+    width: 20px;
+    height: 20px;
+    margin-top: 8px;
+    margin-left: 3%;
+  }.info-card .noBgColor{
+     height: 2px;
+     margin-bottom: 2%;
+   }
+  .skill{
+    border-style: solid;
+    border-radius: 33%;
+    border-width: 3px;
+    border-color: #dcdcdc;
+    display: inline-block;
+    text-align: center;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+  .skill span{
+    font-size: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .info-card p{
+    line-height: 0.5;
+  }.whiteBg p {
+     line-height: 0;
+   }
+  .team-logo{
+    width: 20px;
+    height: 20px;
+    margin-top: 3%;
+    margin-right: 4%;
+  }
+  .buisness-info h2 , h3{
+    line-height: 0;
+  }
+  .noMargin{
+    margin: 0;
+  }
+  .location-logo{
+    width: 20px;
+    height:20px;
+    margin-right: 5px;
+  }
+  .reporting{
+    margin-right: 5px;
+    font-size: 15px;
+    margin-top: 0;
+  }
+  .my-input-h{
+    height:20px;
+    margin: 0;
+  }
+  .my-input-span{
+    height:35px;
+    margin: 0;
+
+  }
+
+  #span-p{
+    margin-top: -13px;
+    margin-bottom: 25px;
+  }
+  .ember-power-select-trigger{
+    min-height: 25px;
+    background-color: transparent;
+    height: 20px;
+    border-color: #41596e;
+    padding: 0;
+  }
+  .my-input-p{
+    height:20px;
+    margin: 0;
+    margin-top: -17px;
+  }.white-border{
+       border-color: white;
+     }
+
 
 

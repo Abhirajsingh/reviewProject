@@ -7,7 +7,7 @@ export default DS.Model.extend({
   name : DS.attr(),
   employeeRole :DS.attr(),
   location : DS.belongsTo('location'),
-  startDate : DS.attr("date"),
+  startDate : DS.attr(),
   profilePic :DS.attr(),
   email:DS.attr(),
   mobileNo : DS.attr(),

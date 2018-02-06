@@ -11,6 +11,7 @@ import com.zemoso.project.utils.DepartmentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +40,10 @@ public class DepartmentController {
 
     /**
      * get the list of all department of a company;
-     * @return
+     * @return <Map<String, List<Map<String, Object>>>>
      */
     @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity<Map<String, List<Map<String, Object>>>> getAllDeparmentOfCompany(){
+    public ResponseEntity getAllDeparmentOfCompany(){
         Map<String,List<Map<String,Object>>> responseMap = new HashMap<>();
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
@@ -56,40 +57,34 @@ public class DepartmentController {
                 }
                 mapList.add(departmentMap);
             });
-        }
-        catch (NullPointerException e){
-            LOGGER.error("Departments is null" ,e );
-        }catch (DbException e){
+        }catch (Exception e){
             LOGGER.error(e.getMessage() , e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).
+                    body(e.getMessage());
         }
          responseMap.put("departments" , mapList);
-         return ResponseEntity.ok().body(responseMap);
+         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
 
     /**
-     * get depart of a employee;
+     * get department  of a employee;
      * @param employeeId
-     * @return
+     * @return <Map<String, Map<String, Object>>>
      */
     @RequestMapping(path = "/{employeeId}/department",method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Map<String, Object>>>
-    getEmployeeLocation(@PathVariable Long employeeId){
-
-        Department department = null;
+    public ResponseEntity getEmployeeLocation(@PathVariable Long employeeId){
         try {
-            department = employeePortalService.getEmployee(employeeId).getDepartment();
-        } catch (DbException e) {
-            LOGGER.error(e.getMessage() , e);
-        }
-
+        Department department = employeePortalService.getEmployee(employeeId).getDepartment();
         Map<String, Map<String, Object>> map = new HashMap<>();
-        try {
-            map.put("department", departmentMapper.getObjectMap(department) );
-        } catch (MapperException e) {
-            LOGGER.error(e.getMessage() , e);
-        }
 
-        return ResponseEntity.ok().body(map);
+            map.put("department", departmentMapper.getObjectMap(department) );
+            return ResponseEntity.ok().body(map);
+        }
+        catch (Exception e) {
+            LOGGER.error(e.getMessage() , e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).
+                    body(e.getMessage());
+        }
 
     }
 

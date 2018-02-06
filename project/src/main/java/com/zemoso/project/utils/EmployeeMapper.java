@@ -38,25 +38,31 @@ public class EmployeeMapper {
     public Map<String , Object> getObjectMap(Employee employee) throws MapperException{
         Map<String , Object> map = new HashMap<>();
         try{
-        map.put(Constant.ID , employee.getId());
-        map.put(Constant.NAME , employee.getFullName());
-        map.put(Constant.BIODATA , employee.getBiodata());
-        map.put(Constant.EMAIL , employee.getEmail());
-        map.put(Constant.MOBILE_NO, employee.getMobileNo());
-        map.put(Constant.EMPLOYEE_ROLE, employee.getEmployeeRole());
-        map.put(Constant.START_DATE, employee.getStartDate());
-        map.put(Constant.PROFILE_PIC , employee.getProfilePic());
-        map.put(Constant.REPORTING_EMPLOYEE_ID , employee.getReportingEmployeeId());
-        Map<String, String> links = new HashMap<>();
-        links.put("skills", "/api/skills/" + employee.getId() + "/skills");
-        links.put("location", "/api/locations/" + employee.getId() +"/location");
-        links.put("department", "/api/departments/" + employee.getId() +"/department");
-        links.put("project", "/api/projects/" + employee.getId() +"/project");
-        map.put("links", links);
-
-        map.put(Constant.REPORTING_EMP_NAME, employee.getReportingEmployeeName());
-
-        return map;}
+            Map<String,String> roleMap = new HashMap<>();
+            roleMap.put(Constant.NAME,employee.getEmployeeRole());
+            Map<String, String> reportingName = new HashMap<>();
+            reportingName.put(Constant.NAME , employee.getReportingEmployeeName());
+            map.put(Constant.ID , employee.getId());
+            map.put(Constant.NAME , employee.getFullName());
+            map.put(Constant.BIODATA , employee.getBiodata());
+            map.put(Constant.EMAIL , employee.getEmail());
+            map.put(Constant.MOBILE_NO, employee.getMobileNo());
+            map.put(Constant.EMPLOYEE_ROLE, roleMap);
+            map.put(Constant.START_DATE, employee.getStartDate());
+            map.put(Constant.PROFILE_PIC , employee.getProfilePic());
+            map.put(Constant.REPORTING_EMPLOYEE_ID , employee.getReportingEmployeeId());
+            map.put(Constant.REPORTING_EMP_NAME ,reportingName);
+            map.put(Constant.FIRST_NAME , employee.getFirstName());
+            map.put(Constant.MIDDLE_NAME , employee.getMiddleName());
+            map.put(Constant.LAST_NAME , employee.getLastName());
+            Map<String, String> links = new HashMap<>();
+            links.put("skills", "/api/skills/" + employee.getId() + "/skills");
+            links.put("location", "/api/locations/" + employee.getId() +"/location");
+            links.put("department", "/api/departments/" + employee.getId() +"/department");
+            links.put("project", "/api/projects/" + employee.getId() +"/project");
+            map.put("links", links);
+            return map;
+        }
         catch (Exception e){
             throw new MapperException("MapperException , /EmployeeMapper/getObjectMap" ,e);
         }
@@ -113,7 +119,8 @@ public class EmployeeMapper {
 
 
             if (map.containsKey(Constant.EMPLOYEE_ROLE) && map.get(Constant.EMPLOYEE_ROLE) != null) {
-                employee.setEmployeeRole(map.get(Constant.EMPLOYEE_ROLE).toString());
+                Map<String ,Object> roleMap = (Map<String, Object>) map.get(Constant.EMPLOYEE_ROLE);
+                employee.setEmployeeRole(roleMap.get(Constant.NAME).toString());
             }
 
             if (map.containsKey(Constant.LOCATION) && map.get(Constant.LOCATION) != null) {
@@ -127,6 +134,10 @@ public class EmployeeMapper {
 
             if (map.containsKey(Constant.REPORTING_EMPLOYEE_ID) && map.get(Constant.REPORTING_EMPLOYEE_ID) != null) {
                 employee.setReportingEmployeeId(Long.parseLong(map.get(Constant.REPORTING_EMPLOYEE_ID).toString()));
+            }
+            if (map.containsKey(Constant.REPORTING_EMP_NAME) && map.get(Constant.REPORTING_EMP_NAME) != null) {
+                Map<String ,Object> reportingNamMap = (Map<String, Object>) map.get(Constant.REPORTING_EMP_NAME);
+                employee.setReportingEmployeeName(reportingNamMap.get(Constant.NAME).toString());
             }
 
             if (map.containsKey(Constant.PROFILE_PIC))
