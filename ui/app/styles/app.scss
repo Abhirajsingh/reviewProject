@@ -22,6 +22,9 @@
 .cardWrapper:hover {
   opacity: .7;
 }
+.cardWrapper .noCursor:hover{
+  opacity: 1 ;
+}
 .noBgColor{
   background-color: #f1f5f8;
 }

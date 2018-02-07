@@ -2,129 +2,6 @@
 
 {{!-- Form to take the input for the new employee --}}
 {{#paper-form onSubmit=(action "submit") as |form|}}
-  {{!--<div class="margin-left-8 margin-right-8 margin-top-5" xmlns="http://www.w3.org/1999/html"
-       xmlns="http://www.w3.org/1999/html">
-    <div class="layout-row">
-      <div class="layout-column flex-80">
-        <p> Choose a profile pic</p>
-        <input type='file' required  accept="image/x-png,image/gif,image/jpeg"
-               id='file-field' onChange={{action "fileUpload" this}}/>
-      </div>
-      <div class="layout-column flex-10">
-        {{#paper-button class="button" onClick=(action "cancle")}}Cancel{{/paper-button}}
-      </div>
-      <div class="layout-column flex-10">
-        {{#form.submit-button class= "button" raised=true primary=true}}Save{{/form.submit-button}}
-      </div>
-    </div>
-    <div class = "layout-row">
-      <div class="layout-column flex-25">
-        {{form.input label="First Name" value=newEmployee.firstName onChange=(action (mut newEmployee.firstName)) required=true maxlength=20}}
-      </div>
-      <div class="layout-cloumn flex-5"></div> <div class="layout-column flex-25">
-      {{form.input label="Middle Name" value=newEmployee.middleName onChange=(action (mut newEmployee.middleName)) maxlength=20}}
-    </div>
-      <div class="layout-column flex-15"></div><div class="layout-column flex-35">
-      {{form.input label="Last Name" value=newEmployee.lastName onChange=(action (mut newEmployee.lastName)) required =true maxlength=20}}
-    </div>
-    </div>
-    <div class="layout-row">
-      <!--single select paper input as paper select -->
-    <div class="layout-column flex-25">
-      <!--optios is list of role send by backend-->
-      {{#paper-select
-        label="Role"
-        options=roles
-        required= true
-        selected= newEmployee.employeeRole
-        onchange=(action (mut newEmployee.employeeRole))
-      as |role|
-      }}{{role.name}}{{/paper-select}}
-    </div> <div class="layout-cloumn flex-5"></div>
-      <!--single select paper select for selecting reporting employee-->
-      <div class="layout-column flex-25">
-        <!--options shown is list of all employee in db-->
-        {{#paper-select
-          label="Reporting Employee"
-          options=employeeList
-          selected= newEmployee.reportingEmployee
-          onchange=(action (mut newEmployee.reportingEmployee))
-        as |employee|
-        }}{{employee.name}}{{/paper-select}}
-      </div>
-      <div class="layout-column flex-15"></div>
-      <!--single select for department input-->
-      <div class="layout-column flex-35">
-        <!--options shows all department available in db for a company-->
-        {{#paper-select
-          label="department"
-          options=department
-          required= true
-          selected= newEmployee.department
-          onchange=(action (mut newEmployee.department))
-        as |department|
-        }}{{department.name}}{{/paper-select}}
-      </div>
-    </div>
-    <div class="layout-row">
-      <div class = "layout-column flex-25">
-        {{form.input type="date" label="Start Date" value=newEmployee.startDate onChange=(action (mut newEmployee.startDate)) required =true}}
-      </div>
-     <div class="flex-5"></div>
-      <div class = "layout-column flex-25">
-        {{form.input type="number" label="Mobile No." value=newEmployee.mobileNo onChange=(action (mut newEmployee.mobileNo)) required =true
-                     maxlength=12 minlength=10}}
-      </div>
-      <div class="flex-15"></div>
-      <div class="layout-column flex-35">
-        {{form.input type="email" label="Email" value=newEmployee.email onChange=(action (mut newEmployee.email)) required=true}}
-      </div>
-    </div>
-    <div class="layout-row">
-      <!--single select for location input-->
-      <div class="layout-column flex-45">
-        <!--options shown is all location of a company in db-->
-        {{#paper-select
-          label="location"
-          options=location
-          required= true
-          selected= newEmployee.location
-          onchange=(action (mut newEmployee.location))
-        as |location|
-        }}{{location.landmark}}{{/paper-select}}
-      </div>
-   <div class="flex-10"></div>
-      <!--single select for project-->
-    <div class="layout-column flex-45">
-      <!--options shown is list of all project of a company-->
-      {{#paper-select
-        label="project"
-        options=project
-        required= true
-        selected= newEmployee.project
-        onchange=(action (mut newEmployee.project))
-      as |project|
-      }}{{project.name}}{{/paper-select}}
-    </div></div>
-    <div class="layout-column">
-      <!--multi select for the skill, n:n relationship in employee and skill;-->
-      {{#power-select-multiple
-        options=skills
-        selected=selectedSkills
-        placeholder="Select Skills"
-        onchange=(action (mut selectedSkills))
-      as |skill|
-      }}
-        {{skill.name}}
-      {{/power-select-multiple}}
-    </div>
-   <div class="layout-column flex-100">
-      {{form.input  label="biodata" value=newEmployee.biodata onChange=(action (mut newEmployee.biodata)) maxlength=300}}
-    </div>
-  </div>
---}}
-
-{{!-- to display the dtail about a employee --}}
 
   <div class="body">
     <div class="layout-column shadow">
@@ -195,12 +72,12 @@
                 <h2 class="contact">Contact</h2></div>
               <div class="layout-column">
                 <div class="layout-row">
-                  <p>email:</p><div class="flex-5"></div><p class="email">
-                  {{paper-input class="my-input-p"  placeholder="email" value=newEmployee.email onChange=(action (mut newEmployee.email)) maxlength=20
-                  required=true icon='email'}}
+                  <p>Email:</p><div class="flex-5"></div><p class="email">
+                  {{paper-input class="my-input-p"  type = "email" placeholder="email" value=newEmployee.email onChange=(action (mut newEmployee.email)) maxlength=40
+                  required=true customValidations=emailValidation icon='email'}}
                 </p></div>
                 <div class="layout-row">
-                  <p>mobile:</p><div class="flex-5"></div><p class="mobileNo">
+                  <p>Mobile:</p><div class="flex-5"></div><p class="mobileNo">
                   {{paper-input type='number' class="my-input-p" placeholder="Mobile No" value=newEmployee.mobileNo onChange=(action (mut newEmployee.mobileNo)) maxlength=12 minlength=10
                   required=true icon='phone' }}
                 </p>
@@ -267,7 +144,7 @@
                   }}{{project.name}}{{/paper-select}}</p>
               </div>
               <div class="layout-row">
-                <img class="team-logo" src="/assets/images/team_logo.jpg">
+                <img class="team-logo" src="/assets/images/department_logo.png">
                 <p>
                   {{#paper-select class="my-input-p"
                                   label="department"
@@ -293,7 +170,6 @@
                   }}{{employee.name}}{{/paper-select}}
                 </span>
               </div>
-              <!--content in this-->
             </div>
           {{/paper-card}}
         </div>

@@ -3,8 +3,7 @@ package com.zemoso.project.controller;
 
 import com.zemoso.project.exception.FileException;
 import com.zemoso.project.utils.FileSaveMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,10 +17,9 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 public class PictureController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PictureController.class);
 
     @Value("${pictureDirectory}")
     private String picDirectory;
@@ -29,7 +27,7 @@ public class PictureController {
     /**
      * save the file in folder and send the path in response;
      * @param file
-     * @return <Map<String , Map<String , Object>>>
+     * @return <Map<String , Map<String >>
      */
     @RequestMapping(value = "/api/files", method = RequestMethod.POST)
     public ResponseEntity addPictureToDb
@@ -39,10 +37,10 @@ public class PictureController {
             map = new FileSaveMapper().getObjectMap(file,picDirectory);
             Map<String ,Map<String ,Object>> responseMap = new HashMap<>();
             responseMap.put("file" , map);
-            return ResponseEntity.ok().body(responseMap);
+            return ResponseEntity.status(HttpStatus.OK).body(responseMap);
         } catch (FileException e) {
-            LOGGER.error(e.getMessage() ,e);
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            log.error(e.getMessage() ,e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
     }
@@ -57,7 +55,8 @@ public class PictureController {
             value = "/{imageName}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public void getImageWithMediaType(@PathVariable String imageName, HttpServletResponse response) throws IOException {
+    public void getImageWithMediaType(@PathVariable String imageName,
+                                      HttpServletResponse response) throws IOException {
 
             File initialFile = new File(picDirectory + imageName);
         try (InputStream is = new FileInputStream(initialFile)) {

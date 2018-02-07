@@ -20,13 +20,13 @@
 
 
  <!--card for displaying total no of employee andadd employee button-->
-  <div class=" cardWrapper">
+  <div class=" cardWrapper noCursor">
   {{#paper-card class="noBgColor noShadow" as |card|}}
     {{#card.content class="layout-row centerAling"}}
       {{#card.media size="xl" }}
         <h3> Total Employee</h3>
         <div class="circle">
-          <h1>{{length}}</h1>
+          <h1>{{employees.length}}</h1>
         </div>
         {{#link-to 'new-employee'}}
           {{#paper-button class="button"}}

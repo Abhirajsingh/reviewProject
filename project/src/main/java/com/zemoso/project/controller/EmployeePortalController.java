@@ -1,6 +1,5 @@
 package com.zemoso.project.controller;
 
-import com.zemoso.project.exception.DbException;
 import com.zemoso.project.exception.MapperException;
 import com.zemoso.project.model.Employee;
 import com.zemoso.project.service.EmployeePortalService;
@@ -8,8 +7,7 @@ import com.zemoso.project.utils.CompanyUtil;
 import com.zemoso.project.utils.Constant;
 import com.zemoso.project.utils.EmployeeMapper;
 import com.zemoso.project.utils.FileSaveMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeePortalController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeePortalController.class);
 
 
     @Autowired
@@ -52,20 +49,18 @@ public class EmployeePortalController {
                try {
                    employeeMap = employeeMapper.getObjectMap(item);
                } catch (MapperException e) {
-                   LOGGER.error(e.getMessage() , e);
+                   log.error(e.getMessage() , e);
                }
                mapList.add(employeeMap);
        });
+           responseMap.put("employees" , mapList);
+           return ResponseEntity.ok().body(responseMap);
        }
        catch (Exception e){
-           LOGGER.error(e.getMessage() , e);
+           log.error(e.getMessage() , e);
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                    body(e.getMessage());
        }
-
-
-       responseMap.put("employees" , mapList);
-       return ResponseEntity.ok().body(responseMap);
 
     }
     /**
@@ -82,7 +77,7 @@ public class EmployeePortalController {
                 responseMap.put(Constant.EMPLOYEE, employeeMapper.getObjectMap(employee));
             return ResponseEntity.ok().body(responseMap);
         }catch (Exception e){
-            LOGGER.error(e.getMessage() , e);
+            log.error(e.getMessage() , e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                     body(e.getMessage());
         }
@@ -102,7 +97,7 @@ public class EmployeePortalController {
             responseMap.put(Constant.EMPLOYEE, emap);
             return ResponseEntity.ok().body(responseMap);
         }catch (Exception e){
-            LOGGER.error(e.getMessage() , e);
+            log.error(e.getMessage() , e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                     body(e.getMessage());
         }
@@ -127,12 +122,10 @@ public class EmployeePortalController {
            dbEmployee.setSkill(ipEmployee.getSkill());
            dbEmployee.setEmail(ipEmployee.getEmail());
            dbEmployee.setMobileNo(ipEmployee.getMobileNo());
+           dbEmployee.setEmployeeRole(ipEmployee.getEmployeeRole());
            dbEmployee.setDepartment(ipEmployee.getDepartment());
            dbEmployee.setProject(ipEmployee.getProject());
-           try {
-               Map<String, Object> employeeRoleMap = (Map<String, Object>) map.get(Constant.EMPLOYEE).get(Constant.EMPLOYEE_ROLE);
-               dbEmployee.setEmployeeRole(employeeRoleMap.get(Constant.NAME).toString());
-           }catch (Exception e){ dbEmployee.setReportingEmployeeName(ipEmployee.getReportingEmployeeName());}
+           dbEmployee.setReportingEmployeeName(ipEmployee.getReportingEmployeeName());
            dbEmployee.setLocation(ipEmployee.getLocation());
            dbEmployee.setProfilePic(ipEmployee.getProfilePic());
            dbEmployee.setStartDate(ipEmployee.getStartDate());
@@ -141,10 +134,10 @@ public class EmployeePortalController {
 
            Map<String, Object> responseMap = new HashMap<>();
                responseMap.put(Constant.EMPLOYEE, employeeMapper.getObjectMap(dbEmployee));
-               return ResponseEntity.ok().body(responseMap);
+               return ResponseEntity.status(HttpStatus.OK).body(responseMap);
            }
-       catch (Exception e){
-           LOGGER.error(e.getMessage(),e);
+       catch (Exception e) {
+           log.error(e.getMessage(),e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
        }
 

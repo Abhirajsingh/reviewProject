@@ -1,7 +1,6 @@
 package com.zemoso.project.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,7 +9,7 @@ import java.util.Set;
 public class Employee extends BaseEntityModel{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private Long companyId;
@@ -25,17 +24,27 @@ public class Employee extends BaseEntityModel{
     private String email;
     private String mobileNo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private Project project;
+
+    @Column(name = "project_id", insertable=false , updatable=false)
+    private Long projectId;
 
     private String employeeRole;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private Location location;
+
+    @Column(name = "location_id", insertable=false , updatable=false)
+    private Long locationId;
+
     private String startDate;
 
     @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private Department department;
+
+    @Column(name = "department_id", insertable=false , updatable=false)
+    private Long departmentId;
 
     private String reportingEmployeeName;
 

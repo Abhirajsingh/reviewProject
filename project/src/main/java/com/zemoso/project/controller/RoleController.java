@@ -1,14 +1,11 @@
 package com.zemoso.project.controller;
 
-
-import com.zemoso.project.exception.DbException;
 import com.zemoso.project.exception.MapperException;
 import com.zemoso.project.model.Role;
 import com.zemoso.project.service.RoleService;
 import com.zemoso.project.utils.CompanyUtil;
 import com.zemoso.project.utils.RoleMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@Slf4j
 @RestController
 @RequestMapping("/api/roles")
 public class RoleController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
-
 
     @Autowired
     private RoleMapper rolesMapper;
@@ -48,14 +44,14 @@ public class RoleController {
                 try {
                     mapList.add(rolesMapper.getObjectMap(role));
                 } catch (MapperException e) {
-                    LOGGER.error(e.getMessage(), e);
+                    log.error(e.getMessage(), e);
                 }
             });
             responseMap.put("roles", mapList);
-            return ResponseEntity.ok().body(responseMap);
+            return ResponseEntity.status(HttpStatus.OK).body(responseMap);
         }catch (Exception e){
-            LOGGER.error("roles is null" ,e);
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            log.error("roles is null" ,e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
     }

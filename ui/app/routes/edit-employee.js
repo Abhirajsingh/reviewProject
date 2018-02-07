@@ -1,17 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 export default Route.extend({
-  // model(param){
-  //    return this.get('store').findRecord('employee' ,param.employee_id);
-  // },
-  // setupController: function(controller, model ,param) {
-  //   this._super(controller, model);
-  //   let employee = this.get('store').findRecord('employee',2);
-  //   controller.set('employee' , employee);
-  //   //let employee =
-  //   //controller.set('employee', model.employee);
-  // }
-  roletypes : [],
 
   model(param){
     return RSVP.hash({
@@ -35,5 +24,12 @@ export default Route.extend({
     controller.set('skills', model.skills);
     controller.set('roles', model.roles);
     controller.set("employee", model.employee);
+    let reportingEmployeeList  = [];
+    model.employees.forEach(function (reEmployee) {
+      if(reEmployee.id != model.employee.id)
+        reportingEmployeeList.push(reEmployee);
+    })
+    controller.set('reportingEmployeeList' , reportingEmployeeList)
+
   }
 });

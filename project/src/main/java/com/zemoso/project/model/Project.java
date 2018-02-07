@@ -2,7 +2,6 @@ package com.zemoso.project.model;
 
 import lombok.Data;
 import lombok.NonNull;
-
 import javax.persistence.*;
 
 
@@ -15,7 +14,7 @@ public class Project {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private long companyId;

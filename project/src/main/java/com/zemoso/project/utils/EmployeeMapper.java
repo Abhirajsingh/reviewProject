@@ -3,17 +3,16 @@ import com.zemoso.project.exception.DbException;
 import com.zemoso.project.exception.MapperException;
 import com.zemoso.project.model.*;
 import com.zemoso.project.service.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Slf4j
 @Component
 public class EmployeeMapper {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeMapper.class);
 
 
     @Autowired
@@ -57,9 +56,9 @@ public class EmployeeMapper {
             map.put(Constant.LAST_NAME , employee.getLastName());
             Map<String, String> links = new HashMap<>();
             links.put("skills", "/api/skills/" + employee.getId() + "/skills");
-            links.put("location", "/api/locations/" + employee.getId() +"/location");
-            links.put("department", "/api/departments/" + employee.getId() +"/department");
-            links.put("project", "/api/projects/" + employee.getId() +"/project");
+            links.put("location", "/api/locations/location/" + employee.getLocationId());
+            links.put("department", "/api/departments/department/" + employee.getDepartmentId());
+            links.put("project", "/api/projects/project/" + employee.getProjectId());
             map.put("links", links);
             return map;
         }
@@ -70,19 +69,16 @@ public class EmployeeMapper {
     public Employee getMapObject(Map<String, Object> map) throws MapperException{
         Employee employee = new Employee();
 
+        String[] keys = {Constant.FIRST_NAME, Constant.MIDDLE_NAME, Constant.LAST_NAME,
+                        Constant.BIODATA , Constant.EMAIL , Constant.MOBILE_NO , Constant.START_DATE ,
+                        Constant.REPORTING_EMPLOYEE_ID , Constant.PROFILE_PIC
+                            };
         try {
-
-            if (map.containsKey(Constant.FIRST_NAME) && map.get(Constant.FIRST_NAME) != null)
-                employee.setFirstName(map.get(Constant.FIRST_NAME).toString());
-
-            if (map.containsKey(Constant.MIDDLE_NAME) && map.get(Constant.MIDDLE_NAME) != null)
-                employee.setMiddleName(map.get(Constant.MIDDLE_NAME).toString());
-
-            if (map.containsKey(Constant.LAST_NAME) && map.get(Constant.LAST_NAME) != null)
-                employee.setLastName(map.get(Constant.LAST_NAME).toString());
-
-            if (map.containsKey(Constant.BIODATA) && map.get(Constant.BIODATA) != null)
-                employee.setBiodata(map.get(Constant.BIODATA).toString());
+            for(String key : keys){
+                if(map.containsKey(key) && map.get(key) !=null){
+                    BeanUtils.setProperty(employee , key , map.get(key).toString());
+                }
+            }
 
             if (map.containsKey(Constant.SKILLS) && map.get(Constant.SKILLS) != null) {
                 List<Map<String, Object>> skillMapList = (List<Map<String, Object>>) map.get(Constant.SKILLS);
@@ -93,17 +89,12 @@ public class EmployeeMapper {
                         try {
                             skillSet.add(skillService.getSkill(skillId));
                         } catch (DbException e) {
-                            LOGGER.error(e.getMessage() ,e);
+                            log.error(e.getMessage() ,e);
                         }
                     });
                     employee.setSkill(skillSet);
             }
 
-            if (map.containsKey(Constant.EMAIL) && map.get(Constant.EMAIL) != null)
-                employee.setEmail(map.get(Constant.EMAIL).toString());
-
-            if (map.containsKey(Constant.MOBILE_NO) && map.get(Constant.MOBILE_NO) != null)
-                employee.setMobileNo(map.get(Constant.MOBILE_NO).toString());
 
             if (map.containsKey(Constant.PROJECT) && map.get(Constant.PROJECT) != null) {
                 Map<String, Object> projectMap = (Map<String, Object>) map.get(Constant.PROJECT);
@@ -119,13 +110,15 @@ public class EmployeeMapper {
 
 
             if (map.containsKey(Constant.EMPLOYEE_ROLE) && map.get(Constant.EMPLOYEE_ROLE) != null) {
-                try{
-                Map<String ,Object> roleMap = (Map<String, Object>) map.get(Constant.EMPLOYEE_ROLE);
-                employee.setEmployeeRole(roleMap.get(Constant.NAME).toString());}
-                catch (Exception e){
-                    employee.setEmployeeRole(map.get(Constant.EMPLOYEE_ROLE).toString());
+                    Object responseMap = map.get(Constant.EMPLOYEE_ROLE);
+                    if (responseMap instanceof Map) {
+                        Map<String, Object> roleMap = (Map<String, Object>) responseMap;
+                        employee.setEmployeeRole(roleMap.get(Constant.NAME).toString());
+                    } else {
+                        employee.setEmployeeRole(map.get(Constant.EMPLOYEE_ROLE).toString());
+                    }
                 }
-            }
+
 
             if (map.containsKey(Constant.LOCATION) && map.get(Constant.LOCATION) != null) {
                 Map<String, Object> locationMap = (Map<String, Object>) map.get(Constant.LOCATION);
@@ -133,23 +126,19 @@ public class EmployeeMapper {
                 employee.setLocation(locationService.getLocation(locationId));
             }
 
-            if (map.containsKey(Constant.START_DATE) && map.get(Constant.START_DATE) != null)
-                employee.setStartDate(map.get(Constant.START_DATE).toString());
-
-            if (map.containsKey(Constant.REPORTING_EMPLOYEE_ID) && map.get(Constant.REPORTING_EMPLOYEE_ID) != null) {
-                employee.setReportingEmployeeId(Long.parseLong(map.get(Constant.REPORTING_EMPLOYEE_ID).toString()));
-            }
             if (map.containsKey(Constant.REPORTING_EMP_NAME) && map.get(Constant.REPORTING_EMP_NAME) != null) {
-                try {
-                    Map<String, Object> reportingNameMap = (Map<String, Object>) map.get(Constant.REPORTING_EMP_NAME);
-                    employee.setReportingEmployeeName(reportingNameMap.get(Constant.NAME).toString());
-                }catch (Exception e){
+
+                Object responseMap = map.get(Constant.REPORTING_EMP_NAME);
+                if(responseMap instanceof Map){
+                    Map<String , Object> reportingMap = (Map<String, Object>) responseMap;
+                    if(reportingMap.containsKey(Constant.REPORTING_EMP_NAME) && reportingMap.get(Constant.REPORTING_EMP_NAME) !=null)
+                    employee.setReportingEmployeeName(reportingMap.get(Constant.NAME).toString());
+                }
+                else {
+                    if(map.containsKey(Constant.REPORTING_EMP_NAME) && map.get(Constant.REPORTING_EMP_NAME) !=null)
                     employee.setReportingEmployeeName(map.get(Constant.REPORTING_EMP_NAME).toString());
                 }
             }
-
-            if (map.containsKey(Constant.PROFILE_PIC))
-                employee.setProfilePic(map.get(Constant.PROFILE_PIC).toString());
 
             employee.setCreatedById(CompanyUtil.getCompanyId());
             employee.setLastUpdatedById(CompanyUtil.getCompanyId());

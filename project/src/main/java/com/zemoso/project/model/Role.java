@@ -3,7 +3,6 @@ package com.zemoso.project.model;
 
 import lombok.Data;
 import lombok.NonNull;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +16,7 @@ public class Role {
         this.name = "not avaialble";
     }
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NonNull

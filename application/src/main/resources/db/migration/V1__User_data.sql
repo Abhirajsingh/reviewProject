@@ -177,11 +177,12 @@ WITH (
 ALTER TABLE public.employee
   OWNER TO postgres;
 
-INSERT INTO employee VALUES (3, '2018-02-02 10:47:56.261', 1, NULL, '2018-02-02 10:47:56.261', 1, 'not available', 1, 'sterlingknight@gmail.com', 'Software Engineer', 'Sterling', 'Knight', '', '9800171547', '123', 1, NULL, NULL, 1, 1, 1);
-INSERT INTO employee VALUES (5, '2018-02-02 11:04:38.824', 1, NULL, '2018-02-02 11:04:38.824', 1, 'no biodata', 1, 'bestybradtarrivo@redif.com', 'Software Engineer', 'Besty', 'Arrivo', 'Bradt', '9088123453', '1234', 1, NULL, NULL, 1, 1, 1);
-INSERT INTO employee VALUES (2, '2018-02-02 07:54:19.081', 1, NULL, '2018-02-02 07:54:19.081', 1, 'not available', 1, 'walterwhite@gmail.com', 'Software Engineer', 'walter', 'White', '', '1715479800', 'walter', 1, NULL, NULL, 1, 1, 1);
-INSERT INTO employee VALUES (4, '2018-02-02 11:02:26.424', 1, NULL, '2018-02-02 11:02:26.424', 1, 'not available', 1, 'aaronpaulberlinate@gmail.com', 'Software Engineer', 'Aaron', 'Berlinate', 'Paul', '9100123123', 'aaron', 3, NULL, NULL, 1, 1, 1);
-INSERT INTO employee VALUES (1, NULL, 1, NULL, NULL, 1, 'not available', 1, 'abhirajsinghpatel@gmail.com', 'Software Engineer', 'Abhiraj', 'Patel', 'Singh', '9800171547', 'demo', 2, NULL, NULL, 1, 1, 1);
+INSERT INTO employee VALUES (1, NULL, 1, NULL, '2018-02-07 20:30:28.89', 1, 'not available', 1, 'abhiraj@gmail.com', 'Senior Software Engineer', 'Abhiraj', 'Patel', 'singh', '9845232321', '123', NULL, '{name=null}', '2018-02-06', 1, 1, 1);
+INSERT INTO employee VALUES (2, NULL, 1, NULL, '2018-02-07 20:31:39.961', 1, 'he work in microsoft', 1, 'prabhaj@gmail.com', 'Senior Software Engineer', 'prabhat', 'Singh', NULL, '20938230983', '1234', 1, 'Abhiraj singh Patel ', '2018-02-16', 1, 1, 1);
+INSERT INTO employee VALUES (3, '2018-02-07 20:33:00.207', 1, NULL, '2018-02-07 20:33:00.207', 1, 'he work in apple', 1, 'sashi@gmail.com', 'Senior Software Engineer', 'Sashi', 'Singh', '', '29874987927', '12345', 2, 'prabhat Singh ', '2018-02-15', 2, 2, 2);
+INSERT INTO employee VALUES (4, '2018-02-07 20:55:31.778', 1, NULL, '2018-02-07 21:07:10.597', 1, '', 1, 'ravikumar@gmail.com', 'Senior Software Engineer', 'Ravi', 'kumar', '', '0933090900', 'demo', NULL, 'Sashi  Singh ', '2018-02-06', 1, 1, 2);
+INSERT INTO employee VALUES (6, '2018-02-07 21:01:17.098', 1, NULL, '2018-02-07 21:34:24.52', 1, '', 1, 'ravikumar@gmail.com', 'Senior Software Engineer', 'Ravi', 'kumar', '', '0933090900', 'walter', 50, NULL, '2018-02-06', 1, 1, 2);
+INSERT INTO employee VALUES (7, '2018-02-07 20:41:01.348', 1, NULL, '2018-02-07 21:35:03.292', 1, 'he', 1, 'guruell@gmail.com', 'Software Engineer', 'Guru', 'well', '', '9373927398', 'aaron', NULL, NULL, '2018-02-08', 3, 1, 1);
 
 -- Table: public.employee_skill
 
@@ -205,7 +206,9 @@ WITH (
 ALTER TABLE public.employee_skill
   OWNER TO postgres;
 
-INSERT INTO employee_skill VALUES (2, 1);
-INSERT INTO employee_skill VALUES (3, 1);
-INSERT INTO employee_skill VALUES (4, 1);
-INSERT INTO employee_skill VALUES (5, 1);
+INSERT INTO employee_skill VALUES (2, 7);
+INSERT INTO employee_skill VALUES (2, 3);
+INSERT INTO employee_skill VALUES (3, 5);
+INSERT INTO employee_skill VALUES (3, 6);
+INSERT INTO employee_skill VALUES (4, 5);
+INSERT INTO employee_skill VALUES (4, 3);

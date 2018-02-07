@@ -3,7 +3,10 @@
 <div class="body">
 <div class="layout-column shadow">
   <div class="layout-row white">
-  <span class="margin-1"> Everyone</span>
+
+  <span class="margin-1"> {{#link-to 'employee-portal' class="no-underline white"}}Everyone
+  {{/link-to}}</span>
+
   <span class="margin-1"> Team</span>
   <span class="margin-1"> Office</span>
   </div>
@@ -76,7 +79,7 @@
            <p>{{model.project.name}}</p>
          </div>
          <div class="layout-row">
-           <img class="team-logo" src="assets/images/team_logo.jpg">
+           <img class="team-logo" src="assets/images/department_logo.png">
            <p>{{model.department.name}}</p>
          </div>
          <div class="noBgColor"></div>

@@ -14,7 +14,6 @@ export default Route.extend({
   },
   setupController: function(controller, model) {
     this._super(controller, model);
-    controller.set('totalEmployee',this.get('model.employees.length'));
     controller.set('employees', model.employees);
     controller.set('location' , model.location);
     controller.set('project' ,model.project);

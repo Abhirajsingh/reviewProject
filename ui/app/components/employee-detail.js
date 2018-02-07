@@ -3,6 +3,14 @@ import {inject as service} from '@ember/service';
 import Ember from'ember';
 
 export default Component.extend({
+  emailValidation: [{
+    message: 'Please provide email in a valid format',
+    validate: (inputValue) => {
+      let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(inputValue);
+    }
+  }],
+
   store:  Ember.inject.service(),
   selectedSkills : [],
   profilePicPath: "",
@@ -50,8 +58,9 @@ export default Component.extend({
          companyEmployee.set('department', self.newEmployee.department);
          companyEmployee.set('project', self.newEmployee.project);
          companyEmployee.set('skills', self.newEmployee.skills);
-         companyEmployee.set('reportingEmployeeId', self.newEmployee.reportingEmployeeName.id);
-         companyEmployee.set('reportingEmployeeName', self.newEmployee.reportingEmployeeName);
+         if(self.newEmployee.reportingEmployeeName){
+           companyEmployee.set('reportingEmployeeName', self.newEmployee.reportingEmployeeName);
+         companyEmployee.set('reportingEmployeeId', self.newEmployee.reportingEmployeeName.id);}
          companyEmployee.save();
          this.get('router').transitionTo('employee-portal');
        }
@@ -69,10 +78,6 @@ export default Component.extend({
            self.profilePicPath  = response.get("filePath");
        });
      },
-    updateEmployee(){
-
-      newEmployee.save();
-    },
 
     setEmployeeRole(e){
       this.newEmployee.employeeRole = e.get('name');
