@@ -51,13 +51,13 @@ public class DepartmentController {
                 }
                 mapList.add(departmentMap);
             });
+            responseMap.put("departments" , mapList);
+            return ResponseEntity.status(HttpStatus.OK).body(responseMap);
         }catch (Exception e){
             log.error(e.getMessage() , e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                     body(e.getMessage());
         }
-         responseMap.put("departments" , mapList);
-         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
 
     /**

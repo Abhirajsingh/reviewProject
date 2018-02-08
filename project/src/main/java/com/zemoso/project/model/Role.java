@@ -15,6 +15,13 @@ public class Role {
     public Role(){
         this.name = "not avaialble";
     }
+
+    public Role(Long id, Long companyId , String name){
+        this.id=id;
+        this.companyId=companyId;
+        this.name=name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

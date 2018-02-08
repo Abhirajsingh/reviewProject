@@ -54,7 +54,7 @@ public class EmployeePortalController {
                mapList.add(employeeMap);
        });
            responseMap.put("employees" , mapList);
-           return ResponseEntity.ok().body(responseMap);
+           return ResponseEntity.status(HttpStatus.OK).body(responseMap);
        }
        catch (Exception e){
            log.error(e.getMessage() , e);
@@ -75,7 +75,7 @@ public class EmployeePortalController {
         try {
             Employee employee = employeePortalService.getEmployee(employeeId);
                 responseMap.put(Constant.EMPLOYEE, employeeMapper.getObjectMap(employee));
-            return ResponseEntity.ok().body(responseMap);
+            return ResponseEntity.status(HttpStatus.OK).body(responseMap);
         }catch (Exception e){
             log.error(e.getMessage() , e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
@@ -95,7 +95,7 @@ public class EmployeePortalController {
             employeePortalService.save(employee);
             Map<String, Object> emap = employeeMapper.getObjectMap(employee);
             responseMap.put(Constant.EMPLOYEE, emap);
-            return ResponseEntity.ok().body(responseMap);
+            return ResponseEntity.status(HttpStatus.OK).body(responseMap);
         }catch (Exception e){
             log.error(e.getMessage() , e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).

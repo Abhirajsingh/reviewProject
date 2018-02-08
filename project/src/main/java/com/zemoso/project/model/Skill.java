@@ -12,6 +12,12 @@ public class Skill {
         this.name = "not available";
     }
 
+    public Skill(Long id , Long companyId , String name){
+        this.id=id;
+        this.companyId=companyId;
+        this.name=name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

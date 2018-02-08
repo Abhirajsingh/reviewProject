@@ -12,6 +12,12 @@ public class Department {
     public Department(){
         this.name ="not available";
     }
+
+    public Department(String name , Long companyId , Long id){
+        this.name=name;
+        this.companyId=companyId;
+        this.id=id;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

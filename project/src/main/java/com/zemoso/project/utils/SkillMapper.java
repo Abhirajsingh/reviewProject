@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * skill to map conversion
+ */
 @Component
 public class SkillMapper {
     /**
