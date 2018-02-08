@@ -1,0 +1,20 @@
+
+{{!-- Card for displyaing Employee --}}
+{{#link-to 'detail' employee.id class="no-underline"}}
+<div class=" cardWrapper">
+{{#paper-card class="" as |card|}}
+  <div class = "hoverStatus"></div>
+  {{#card.content class="layout-row centerAling"}}
+    {{#card.media size="xl" }}
+      <div class="card-media">
+        <img class="profilPic"
+              alt="Image is not available"  src={{employee.profilePic}} >
+      </div>
+      <p class="fullNale">{{employee.name}}</p>
+      <span class="role">{{employee.employeeRole.name}} </span><br>
+      <span class = "mobileNo" >{{employee.mobileNo}}</span>
+    {{/card.media}}
+  {{/card.content}}
+{{/paper-card}}
+</div>
+{{/link-to}}
