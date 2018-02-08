@@ -8,7 +8,14 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit Test for RoleMapper Class
+ */
 public class RoleMapperTest {
+    /**
+     * test for getObjectMap method of RoleMapper Class;
+     * @throws Exception
+     */
     @Test
     public void getObjectMap() throws Exception {
         Long id1 = new Long(1);

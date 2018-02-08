@@ -9,7 +9,14 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit Test for SkillMapper Class
+ */
 public class SkillMapperTest {
+    /**
+     * Test for getObjectMap method of SkillMapper;
+     * @throws Exception
+     */
     @Test
     public void getObjectMap() throws Exception {
         Long id1 = new Long(1);

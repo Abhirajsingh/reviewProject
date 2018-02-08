@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit Test for DeparmentServiceImp Using "spring Mock test"
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class DepartmentServiceImpTest {
 
     @Mock
-    private DepartmentService departmentServiceImp;
+    private DepartmentServiceImp departmentServiceImp;
 
     @Test
     public void getDepartment() throws Exception {

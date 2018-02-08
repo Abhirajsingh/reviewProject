@@ -9,7 +9,15 @@ import java.util.zip.CheckedOutputStream;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit test for LocationMapper Class in util;
+ */
 public class LocationMapperTest {
+
+    /**
+     * Test the getObjectMap method of LocationMapper;
+     * @throws Exception
+     */
     @Test
     public void getObjectMap() throws Exception {
         Long id1 = new Long(1);

@@ -10,6 +10,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
+
+
+/**
+ * Unit Test for SkillServiceImp Using "spring Mock test"
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class SkillServiceImpTest {
 

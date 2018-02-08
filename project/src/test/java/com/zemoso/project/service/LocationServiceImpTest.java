@@ -10,6 +10,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit Test for LocationServiceImp Using "spring Mock test"
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class LocationServiceImpTest {
 

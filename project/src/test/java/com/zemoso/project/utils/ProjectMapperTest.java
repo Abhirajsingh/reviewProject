@@ -8,7 +8,14 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit Test for ProjectMapper;
+ */
 public class ProjectMapperTest {
+    /**
+     * test of the getObjectMap method of ProjectMapper Class;
+     * @throws Exception
+     */
     @Test
     public void getObjectMap() throws Exception {
         Long id1 = new Long(1);

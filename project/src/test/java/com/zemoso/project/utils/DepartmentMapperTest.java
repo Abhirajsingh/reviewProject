@@ -9,7 +9,15 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * unit test for the DepartMapper
+ */
 public class DepartmentMapperTest {
+
+    /**
+     * test the getObjectMap of DepartmentMapper
+     * @throws Exception
+     */
     @Test
     public void getObjectMap() throws Exception {
         Long id1 = new Long(1);
