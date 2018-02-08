@@ -12,15 +12,16 @@ import java.util.UUID;
 
 @Service
 @Qualifier("FileSaveServiceImp")
-public class FileSaveServiceImp implements FileSaveService{
+public class FileSaveServiceImp implements FileSaveService {
     /**
      * save file in given directory and return the path;
+     *
      * @param file
      * @param picDirectory
      * @return
      * @throws FileException
      */
-    public String saveFileAndGetPath(MultipartFile file,String picDirectory) throws FileException {
+    public String saveFileAndGetPath(MultipartFile file, String picDirectory) throws FileException {
         String uniqueId = UUID.randomUUID().toString();
         String filepath = picDirectory + uniqueId;
         try {

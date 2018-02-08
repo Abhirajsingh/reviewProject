@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Qualifier("LocationServiceImp")
-public class LocationServiceImp implements LocationService{
+public class LocationServiceImp implements LocationService {
 
     @Autowired
     private LocationRepository locationRepository;

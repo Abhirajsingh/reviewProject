@@ -1,12 +1,13 @@
 package com.zemoso.project.model;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @Entity
-public class Employee extends BaseEntityModel{
+public class Employee extends BaseEntityModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -24,26 +25,26 @@ public class Employee extends BaseEntityModel{
     private String email;
     private String mobileNo;
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Project project;
 
-    @Column(name = "project_id", insertable=false , updatable=false)
+    @Column(name = "project_id", insertable = false, updatable = false)
     private Long projectId;
 
     private String employeeRole;
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Location location;
 
-    @Column(name = "location_id", insertable=false , updatable=false)
+    @Column(name = "location_id", insertable = false, updatable = false)
     private Long locationId;
 
     private String startDate;
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Department department;
 
-    @Column(name = "department_id", insertable=false , updatable=false)
+    @Column(name = "department_id", insertable = false, updatable = false)
     private Long departmentId;
 
     private String reportingEmployeeName;
@@ -52,14 +53,14 @@ public class Employee extends BaseEntityModel{
 
     private String profilePic;
 
-    public String getFullName(){
+    public String getFullName() {
         String fullName = "";
-        if(this.firstName != null)
-            fullName+=this.firstName + " ";
-        if(this.middleName !=null)
-            fullName+=this.middleName + " ";
-        if(this.lastName != null)
-            fullName+=this.lastName + " ";
+        if (this.firstName != null)
+            fullName += this.firstName + " ";
+        if (this.middleName != null)
+            fullName += this.middleName + " ";
+        if (this.lastName != null)
+            fullName += this.lastName + " ";
 
         return fullName;
     }

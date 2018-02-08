@@ -34,11 +34,12 @@ public class DepartmentController {
 
     /**
      * get the list of all department of a company;
+     *
      * @return <Map<String, List<Map<String, Object>>>>
      */
-    @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity getAllDeparmentOfCompany(){
-        Map<String,List<Map<String,Object>>> responseMap = new HashMap<>();
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity getAllDeparmentOfCompany() {
+        Map<String, List<Map<String, Object>>> responseMap = new HashMap<>();
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
             List<Department> departments = departmentService.getAllDepartment(CompanyUtil.getCompanyId());
@@ -51,10 +52,10 @@ public class DepartmentController {
                 }
                 mapList.add(departmentMap);
             });
-            responseMap.put("departments" , mapList);
+            responseMap.put("departments", mapList);
             return ResponseEntity.status(HttpStatus.OK).body(responseMap);
-        }catch (Exception e){
-            log.error(e.getMessage() , e);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                     body(e.getMessage());
         }
@@ -62,20 +63,20 @@ public class DepartmentController {
 
     /**
      * get department  of a employee;
+     *
      * @param departmentId
      * @return <Map<String, Map<String, Object>>>
      */
-    @RequestMapping(path = "/department/{departmentId}",method = RequestMethod.GET)
-    public ResponseEntity getEmployeeLocation(@PathVariable Long departmentId){
+    @RequestMapping(path = "/department/{departmentId}", method = RequestMethod.GET)
+    public ResponseEntity getEmployeeLocation(@PathVariable Long departmentId) {
         try {
-        Department department = departmentService.getDepartment(departmentId);
-        Map<String, Map<String, Object>> map = new HashMap<>();
+            Department department = departmentService.getDepartment(departmentId);
+            Map<String, Map<String, Object>> map = new HashMap<>();
 
-            map.put("department", departmentMapper.getObjectMap(department) );
+            map.put("department", departmentMapper.getObjectMap(department));
             return ResponseEntity.status(HttpStatus.OK).body(map);
-        }
-        catch (Exception e) {
-            log.error(e.getMessage() , e);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                     body(e.getMessage());
         }

@@ -6,10 +6,11 @@ package com.zemoso.project.exception;
 public class DbException extends Exception {
     /**
      * wrap over the actual exception
+     *
      * @param message
      * @param cause
      */
-    public DbException(String message , Throwable cause){
-        super(message , cause);
+    public DbException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

@@ -32,11 +32,12 @@ public class RoleController {
 
     /**
      * get all Role List;
+     *
      * @return <Map<String, Object>>
      */
-    @RequestMapping(method= RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAllRoles() {
-        Map<String , Object> responseMap = new HashMap<>();
+        Map<String, Object> responseMap = new HashMap<>();
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
             List<Role> roles = roleService.getAllRoles(CompanyUtil.getCompanyId());
@@ -49,8 +50,8 @@ public class RoleController {
             });
             responseMap.put("roles", mapList);
             return ResponseEntity.status(HttpStatus.OK).body(responseMap);
-        }catch (Exception e){
-            log.error("roles is null" ,e);
+        } catch (Exception e) {
+            log.error("roles is null", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 

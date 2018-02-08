@@ -6,11 +6,12 @@ import com.zemoso.project.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 @Qualifier("DepartmentServiceImp")
-public class DepartmentServiceImp implements DepartmentService{
+public class DepartmentServiceImp implements DepartmentService {
 
     @Autowired
     private DepartmentRepository departmentRepository;

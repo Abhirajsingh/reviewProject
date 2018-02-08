@@ -7,11 +7,12 @@ import com.zemoso.project.utils.CompanyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 @Qualifier("EmployeePortalServiceImp")
-public class EmployeePortalServiceImp implements EmployeePortalService{
+public class EmployeePortalServiceImp implements EmployeePortalService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -65,7 +66,7 @@ public class EmployeePortalServiceImp implements EmployeePortalService{
      * @param employeeId
      * @return ; true if employee exit else false
      */
-    public boolean validateEmployeeById(Long employeeId) throws DbException{
+    public boolean validateEmployeeById(Long employeeId) throws DbException {
         try {
             List<Employee> employeeList = getAllEmployee(CompanyUtil.getCompanyId());
             for (Employee employee : employeeList) {

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Qualifier("ProjectServiceImp")
-public class ProjectServiceImp implements ProjectService{
+public class ProjectServiceImp implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;

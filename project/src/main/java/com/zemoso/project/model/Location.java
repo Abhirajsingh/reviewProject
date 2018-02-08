@@ -1,6 +1,7 @@
 package com.zemoso.project.model;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -9,17 +10,17 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Location {
 
-    public Location(){
-        this.landmark="not available";
+    public Location() {
+        this.landmark = "not available";
     }
 
-    public Location(Long id , Long companyId , String country , String state , String city, String landmark){
-        this.landmark=landmark;
-        this.city=city;
-        this.country=country;
-        this.companyId=companyId;
+    public Location(Long id, Long companyId, String country, String state, String city, String landmark) {
+        this.landmark = landmark;
+        this.city = city;
+        this.country = country;
+        this.companyId = companyId;
         this.state = state;
-        this.id=id;
+        this.id = id;
     }
 
     @Id

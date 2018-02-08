@@ -34,11 +34,12 @@ public class SkillController {
 
     /**
      * get all skills
+     *
      * @return <Map<String, List<Map<String, Object>>>>
      */
-    @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity getAllSkill(){
-        Map<String,List<Map<String,Object>>> responseMap = new HashMap<>();
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity getAllSkill() {
+        Map<String, List<Map<String, Object>>> responseMap = new HashMap<>();
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
             List<Skill> skills = skillService.getAllSkill(CompanyUtil.getCompanyId());
@@ -51,22 +52,24 @@ public class SkillController {
                 }
                 mapList.add(skillMap);
             });
-            responseMap.put("skills" , mapList);
+            responseMap.put("skills", mapList);
             return ResponseEntity.status(HttpStatus.OK).body(responseMap);
-        }catch (Exception e){
-            log.error("Skills is null",e);
+        } catch (Exception e) {
+            log.error("Skills is null", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
     }
+
     /**
      * get skills of a employee;
+     *
      * @param employeeId
      * @return <Map<String, List<Map<String, Object>>>>
      */
-    @RequestMapping(path = "/{employeeId}/skills",method = RequestMethod.GET)
-    public ResponseEntity getEmployeeSkills(@PathVariable Long employeeId){
-        Map<String,List<Map<String,Object>>> responseMap = new HashMap<>();
+    @RequestMapping(path = "/{employeeId}/skills", method = RequestMethod.GET)
+    public ResponseEntity getEmployeeSkills(@PathVariable Long employeeId) {
+        Map<String, List<Map<String, Object>>> responseMap = new HashMap<>();
         List<Map<String, Object>> mapList = new ArrayList<>();
         try {
             Set<Skill> skillSet = employeePortalService.getEmployee(employeeId).getSkill();
@@ -81,9 +84,8 @@ public class SkillController {
             });
             responseMap.put("skills", mapList);
             return ResponseEntity.status(HttpStatus.OK).body(responseMap);
-        }
-        catch (Exception e){
-            log.error(e.getMessage() ,e);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
