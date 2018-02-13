@@ -133,6 +133,7 @@ public class EmployeeMapper {
                     Map<String , Object> reportingMap = (Map<String, Object>) responseMap;
                     if(reportingMap.containsKey(Constant.REPORTING_EMP_NAME) && reportingMap.get(Constant.REPORTING_EMP_NAME) !=null)
                     employee.setReportingEmployeeName(reportingMap.get(Constant.NAME).toString());
+                   // employee.setReportingEmployeeId(Long.parseLong(reportingMap.get(Constant.ID).toString()));
                 }
                 else {
                     if(map.containsKey(Constant.REPORTING_EMP_NAME) && map.get(Constant.REPORTING_EMP_NAME) !=null)
@@ -150,6 +151,7 @@ public class EmployeeMapper {
             throw new MapperException("Exception , EmployeeMapper/getMapObject" , e);
         }
     }
+
 
 
 }

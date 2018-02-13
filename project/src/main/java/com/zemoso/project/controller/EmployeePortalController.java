@@ -130,6 +130,7 @@ public class EmployeePortalController {
             dbEmployee.setDepartment(ipEmployee.getDepartment());
             dbEmployee.setProject(ipEmployee.getProject());
             dbEmployee.setReportingEmployeeName(ipEmployee.getReportingEmployeeName());
+            employeePortalService.setReportingEmployeeId(dbEmployee, ipEmployee.getReportingEmployeeName());
             dbEmployee.setLocation(ipEmployee.getLocation());
             dbEmployee.setProfilePic(ipEmployee.getProfilePic());
             dbEmployee.setStartDate(ipEmployee.getStartDate());

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Long>{
     public List<Employee> findAllByCompanyIdOrderByLastUpdatedDesc(Long companyId);
+    List<Employee> findAllByCompanyIdOrderByLevelAsc(Long companyId);
 }

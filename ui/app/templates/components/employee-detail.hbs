@@ -161,13 +161,24 @@
               <div class="layout-row">
                 <span class="team-logo reporting" style="margin-top: 10px;">(&nbsp;)</span>
                 <span>
-                  {{#paper-select class="my-input-span"
-                                  placeholder="Reporting Employee"
-                                  options=employeeList
-                                  selected= newEmployee.reportingEmployeeName
-                                  onchange=(action (mut newEmployee.reportingEmployeeName))
-                  as |employee|
-                  }}{{employee.name}}{{/paper-select}}
+                   {{#if new}}
+                     {{#paper-select class="my-input-span"
+                                     placeholder="Reporting Employee"
+                                     options=employeeList
+                                     selected= newEmployee.reportingEmployeeName
+                                     onchange=(action (mut newEmployee.reportingEmployeeName))
+                     as |employee|
+                     }}{{employee.name}}{{/paper-select}}
+                   {{else}}
+                     {{#paper-select class="my-input-span"
+                                     placeholder="Reporting Employee"
+                                     options=employeeList
+                                     selected= newEmployee.reportingEmployeeName
+                                     onchange=(action (mut newEmployee.reportingEmployeeName))
+                     as |employee|}}
+                     {{employee.name }} {{/paper-select}}
+                   {{/if}}
+
                 </span>
               </div>
             </div>

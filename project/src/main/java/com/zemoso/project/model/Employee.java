@@ -3,11 +3,16 @@ package com.zemoso.project.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
 @Entity
 public class Employee extends BaseEntityModel {
+
+    public Employee(){
+        this.level = 1;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -52,6 +57,9 @@ public class Employee extends BaseEntityModel {
     private Long reportingEmployeeId;
 
     private String profilePic;
+
+    @NotNull
+    private int level;
 
     public String getFullName() {
         String fullName = "";

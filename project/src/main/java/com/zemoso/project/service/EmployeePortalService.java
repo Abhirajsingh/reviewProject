@@ -29,4 +29,11 @@ public interface EmployeePortalService {
      * @return
      */
     Employee getEmployee(Long employeeId) throws DbException;
+
+    /**
+     * set id of the reporting employee;
+     * @param employee
+     * @param name
+     */
+    void setReportingEmployeeId(Employee employee , String name);
 }

@@ -13,6 +13,9 @@ export default Component.extend({
 
   store:  Ember.inject.service(),
   selectedSkills : [],
+  reEmployee :{
+    reportingEmployeeName: null,
+  },
   profilePicPath: "",
   newEmployee: {
     firstName: '',
@@ -63,6 +66,7 @@ export default Component.extend({
          companyEmployee.set('reportingEmployeeId', self.newEmployee.reportingEmployeeName.id);}
          companyEmployee.save();
          this.get('router').transitionTo('employee-portal');
+        // window.location.reload(true);
        }
     },
      fileUpload(event){
@@ -82,8 +86,17 @@ export default Component.extend({
     setEmployeeRole(e){
       this.newEmployee.employeeRole = e.get('name');
     },
+    setReportingEmployee(event){
+      //let id = this.newEmployee.id;
+      console.log(event);
+      let employee = this.get('store').peekRecord('employee',this.newEmployee.id );
+      employee.set('reportingEmployeeName', this.newEmployee.reportingEmployeeName);
+      console.log(this.newEmployee.get('reportingEmployeeName') , this.newEmployee.reportingEmployeeName.id);
+      employee.set('reportingEmployeeId', this.newEmployee.reportingEmployeeName.id);
+  },
     cancle(){
       this.get('router').transitionTo('employee-portal');
+      window.location.reload(true);
     },
   }
 });

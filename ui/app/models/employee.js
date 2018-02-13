@@ -17,4 +17,5 @@ export default DS.Model.extend({
   project : DS.belongsTo('project'),
   reportingEmployeeName : DS.attr(),
   reportingEmployeeId : DS.attr(),
+  reportingEmployee : DS.attr(),
 });

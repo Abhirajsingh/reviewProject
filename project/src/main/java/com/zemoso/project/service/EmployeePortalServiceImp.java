@@ -17,6 +17,8 @@ public class EmployeePortalServiceImp implements EmployeePortalService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    private List<Employee> employees;
+
     /**
      * Save project to DB
      *
@@ -25,6 +27,11 @@ public class EmployeePortalServiceImp implements EmployeePortalService {
      */
     public Employee save(Employee employee) throws DbException {
         try {
+            int level = 1;
+            if(employee.getReportingEmployeeId() != null){
+                level = getEmployee(employee.getReportingEmployeeId()).getLevel() +1;
+            }
+            employee.setLevel(level);
             return employeeRepository.save(employee);
         } catch (Exception e) {
             throw new DbException("Exception , /service/EmployeePortalService/save", e);
@@ -39,7 +46,8 @@ public class EmployeePortalServiceImp implements EmployeePortalService {
      */
     public List<Employee> getAllEmployee(Long companyId) throws DbException {
         try {
-            return employeeRepository.findAllByCompanyIdOrderByLastUpdatedDesc(companyId);
+            employees = employeeRepository.findAllByCompanyIdOrderByLevelAsc(companyId);
+            return employees;
         } catch (Exception e) {
             throw new DbException("Exception , /service/EmployeePortalService/getAllEmployee", e);
         }
@@ -81,6 +89,31 @@ public class EmployeePortalServiceImp implements EmployeePortalService {
                     "/service/EmployeePortalService/validateEmployeeById", e);
         }
         return false;
+    }
+
+    /**
+     * set the id of reporting employee;
+     * @param employee
+     * @param name
+     */
+    public void setReportingEmployeeId(Employee employee, String name) {
+        String fullName ;
+        if (employees != null) {
+            for (Employee empl : employees) {
+                fullName = "";
+                if (empl.getFirstName() != null)
+                    fullName += empl.getFirstName() + " ";
+                if (empl.getMiddleName() != null)
+                    fullName += empl.getMiddleName() + " ";
+                if (empl.getLastName() != null)
+                    fullName += empl.getLastName() + " ";
+                
+                if (fullName.equals(name)) {
+                    employee.setReportingEmployeeId(empl.getId());
+                    break;
+                }
+            }
+        }
     }
 
 }
